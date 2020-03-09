@@ -33,6 +33,15 @@ namespace DocumentFormat.OpenXml.Framework
 
         public int ToHashCode() => _code;
 
+        public static int Combine<T1>(T1 t1)
+        {
+            var hashcode = new HashCode();
+
+            hashcode.Add(t1);
+
+            return hashcode.ToHashCode();
+        }
+
         public static int Combine<T1, T2>(T1 t1, T2 t2)
         {
             var hashcode = new HashCode();

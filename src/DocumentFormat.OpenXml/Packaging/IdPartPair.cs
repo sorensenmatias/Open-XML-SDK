@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using DocumentFormat.OpenXml.Framework;
 using System;
 
 namespace DocumentFormat.OpenXml.Packaging
@@ -10,26 +11,15 @@ namespace DocumentFormat.OpenXml.Packaging
     /// </summary>
     public class IdPartPair
     {
-        private string _id;
-        private OpenXmlPart _part;
+        /// <summary>
+        /// Gets the relationship ID in the pair.
+        /// </summary>
+        public string RelationshipId { get; }
 
         /// <summary>
-        /// Gets or sets the relationship ID in the pair.
+        /// Gets the OpenXmlPart in the pair.
         /// </summary>
-        public string RelationshipId
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the OpenXmlPart in the pair.
-        /// </summary>
-        public OpenXmlPart OpenXmlPart
-        {
-            get { return _part; }
-            set { _part = value; }
-        }
+        public OpenXmlPart OpenXmlPart { get; }
 
         /// <summary>
         /// Initializes a new instance of the IdPartPair with the specified id and part.
@@ -49,13 +39,28 @@ namespace DocumentFormat.OpenXml.Packaging
         /// <returns>True if the value of the value parameter is the same as this instance; otherwise, false.</returns>
         public bool Equals(IdPartPair value)
         {
-            //Check for null
-            if (value == null)
+            if (value is null)
             {
                 return false;
             }
 
-            return string.Equals(_id, value._id, StringComparison.Ordinal) && (_part == value._part);
+            return string.Equals(RelationshipId, value.RelationshipId, StringComparison.Ordinal)
+                && OpenXmlPart == OpenXmlPart;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+            => obj is IdPartPair idPart ? Equals(idPart) : false;
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+
+            hash.Add(RelationshipId, StringComparer.Ordinal);
+            hash.Add(OpenXmlPart);
+
+            return hash.ToHashCode();
         }
     }
 }
