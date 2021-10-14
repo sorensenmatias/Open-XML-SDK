@@ -23,6 +23,8 @@ namespace DocumentFormat.OpenXml.Tests
             public const string animation = "TestFiles.animation.pptx";
 
             public const string AnnotationRef = "TestFiles.AnnotationRef.docx";
+            
+            public const string TemplateWithoutApp = "TestFiles.TemplateWithoutApp.docx";
 
             public const string autosave = "TestFiles.autosave.pptx";
 
